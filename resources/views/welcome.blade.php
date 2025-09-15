@@ -594,8 +594,8 @@
             <div class="container">
                 <h1>Safe Space: Report Abuse safely and Anonymously</h1>
                 <p>A confidential platform designed to protect and empower learners and employees to speak out- with the option to report anonymously</p>                <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary" onclick="startAnonymousReport()">Report Now</a>
-                    <a href="#" class="btn btn-outline white" onclick="trackReport()">Track Report</a>
+                    <a href="{{ route('reports.create') }}" class="btn btn-primary">Report Now</a>
+                    <a href="{{ route('reports.track') }}" class="btn btn-outline white">Track Report</a>
                     <a href="#" class="btn btn-outline white" onclick="showLogin()">Admin Login</a>
                 </div>
             </div>        </section>
