@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
 class School extends Model
 {
@@ -14,14 +13,13 @@ class School extends Model
         'district',
         'type',
         'status',
-        'admin_password',
         'address',
         'phone',
         'email'
     ];
 
     protected $hidden = [
-        'admin_password'
+        // 'admin_password' removed
     ];
 
     protected $casts = [
@@ -34,22 +32,6 @@ class School extends Model
     public function reports()
     {
         return $this->hasMany(Report::class, 'school_code', 'code');
-    }
-
-    /**
-     * Set admin password with bcrypt
-     */
-    public function setAdminPasswordAttribute($value)
-    {
-        $this->attributes['admin_password'] = Hash::make($value);
-    }
-
-    /**
-     * Check if admin password is correct
-     */
-    public function checkAdminPassword($password)
-    {
-        return Hash::check($password, $this->admin_password);
     }
 
     /**

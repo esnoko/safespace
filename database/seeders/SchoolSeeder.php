@@ -22,7 +22,6 @@ class SchoolSeeder extends Seeder
                 'district' => 'Johannesburg',
                 'type' => 'Secondary',
                 'status' => 'active',
-                'admin_password' => Hash::make('pasword1'),
                 'address' => '123 Main St',
                 'phone' => '0123456789',
                 'email' => 'elvisnoko18@gmail.com',

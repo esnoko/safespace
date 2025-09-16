@@ -120,7 +120,6 @@ class ImportGautengSchools extends Command
                     'district' => $schoolData['district'],
                     'type' => $schoolData['type'],
                     'status' => 'active',
-                    'admin_password' => bcrypt('admin123'), // Default password
                 ]
             );
             $bar->advance();
@@ -147,7 +146,6 @@ class ImportGautengSchools extends Command
         $this->info("   Secondary Schools: {$secondarySchools}");
         $this->info("   Combined Schools: {$combinedSchools}");
         $this->newLine();
-        $this->info("🔑 Default admin password for all schools: admin123");
         $this->info("🏫 Students can now select their school when reporting incidents!");
     }
 }

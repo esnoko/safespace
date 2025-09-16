@@ -30,7 +30,6 @@ return new class extends Migration
             $table->time('incident_time')->nullable();
             $table->json('evidence_files')->nullable(); // Store file paths as JSON
             $table->enum('status', ['pending', 'reviewing', 'investigated', 'resolved'])->default('pending');
-            $table->text('admin_notes')->nullable();
             $table->timestamp('resolved_at')->nullable();
             $table->timestamps();
             

@@ -24,7 +24,6 @@ class Report extends Model
         'involved_parties',
         'evidence_files',
         'status',
-        'admin_notes',
         'resolved_at'
     ];
 

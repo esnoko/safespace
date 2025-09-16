@@ -283,7 +283,6 @@
                 <ul class="nav-links">
                     <li><a href="{{ route('reports.create') }}" class="nav-link">Report Incident</a></li>
                     <li><a href="{{ route('reports.track') }}" class="nav-link">Track Report</a></li>
-                    <li><a href="{{ route('admin.login') }}" class="nav-link">Admin Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -297,7 +296,6 @@
                 option to report anonymously</p>            <div class="hero-buttons">
                 <a href="{{ route('reports.create') }}" class="btn btn-primary">Report Now</a>
                 <a href="{{ route('reports.track') }}" class="btn btn-outline white">Track Report</a>
-                <a href="{{ route('admin.login') }}" class="btn btn-outline white">Admin Login</a>
             </div>
         </div>
     </section>
