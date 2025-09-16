@@ -152,9 +152,16 @@
                     <h3 class="font-semibold text-gray-900 mb-2">Incident Date</h3>
                     <p class="text-gray-700 bg-gray-50 p-3 rounded-lg">
                         <i class="fas fa-calendar text-blue-500 mr-2"></i>
-                        {{ $report->incident_date->format('M d, Y') }}
-                        @if($report->incident_time)
-                            at {{ $report->incident_time->format('g:i A') }}
+                        {{ optional($report->incident_date)->format('M d, Y') ?? e($report->incident_date) }}
+                        @if(!empty($report->incident_time))
+                            @php
+                                try {
+                                    $formattedTime = \Carbon\Carbon::createFromFormat('H:i', $report->incident_time)->format('g:i A');
+                                } catch (\Exception $e) {
+                                    $formattedTime = $report->incident_time;
+                                }
+                            @endphp
+                            at {{ $formattedTime }}
                         @endif
                     </p>
                 </div>
@@ -175,10 +182,10 @@
                                 @if(str_starts_with($file['mime_type'], 'image/'))
                                     <!-- Image Evidence -->
                                     <div class="mb-3">
-                                        <img src="{{ route('reports.evidence', ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}" 
+                                        <img src="{{ URL::temporarySignedRoute('reports.evidence', now()->addMinutes(30), ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}" 
                                              alt="{{ $file['original_name'] }}"
                                              class="w-full h-32 object-cover rounded-lg border border-gray-300 cursor-pointer hover:shadow-lg transition-shadow duration-200"
-                                             onclick="openImageModal('{{ route('reports.evidence', ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}', '{{ $file['original_name'] }}')">
+                                             onclick="openImageModal('{{ URL::temporarySignedRoute('reports.evidence', now()->addMinutes(30), ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}', '{{ $file['original_name'] }}')">
                                     </div>
                                 @else
                                     <!-- Non-Image Evidence -->
@@ -198,7 +205,7 @@
                                     <p class="text-gray-500 mt-1">
                                         {{ number_format($file['size'] / 1024, 1) }} KB
                                     </p>
-                                    <a href="{{ route('reports.evidence', ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}" 
+                                    <a href="{{ URL::temporarySignedRoute('reports.evidence', now()->addMinutes(30), ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}" 
                                        target="_blank"
                                        class="inline-block mt-2 text-primary hover:text-primary-dark text-sm font-medium">
                                         <i class="fas fa-external-link-alt mr-1"></i>View

@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reports', function (Blueprint $table) {
-            //
+            $table->string('school_code', 10)->after('reference_number')->index();
+            $table->foreign('school_code')->references('code')->on('schools')->cascadeOnUpdate()->restrictOnDelete();
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('reports', function (Blueprint $table) {
-            //
+            $table->dropForeign(['school_code']);
+            $table->dropColumn('school_code');
         });
     }
 };

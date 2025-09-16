@@ -24,7 +24,7 @@ class ReportController extends Controller
         $rules = [
             'school_code' => 'required|exists:schools,code',
             'is_anonymous' => 'nullable|boolean',
-            'category' => 'required|in:bullying,harassment,violence,other',
+            'category' => 'required|in:bullying,substance_abuse,sexual_harassment,weapons,teenage_pregnancy,violence,harassment,other',
             'description' => 'required|string|min:10|max:2000',
             'location' => 'nullable|string|max:255',
             'incident_date' => 'nullable|date|before_or_equal:today',

@@ -5,26 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Quick Report - SafeSpace</title>
-        <meta name="description" content="SafeSpace i                .form-select {
-                    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-                    background-position: right 0.75rem center;
-                    background-repeat: no-repeat;
-                    background-size: 1rem;
-                    padding-right: 3rem;
-                }
-
-                .error-message {
-                    color: var(--error-color);
-                    font-size: 0.875rem;
-                    margin-top: 0.5rem;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.25rem;
-                }
-                .error-message::before {
-                    content: '⚠️';
-                    font-size: 0.75rem;
-                }ure platform for anonymous reporting of abuse, bullying, harassment, and other safety concerns.">        <!-- Fonts -->
+        <meta name="description" content="SafeSpace is a secure platform for anonymous reporting of abuse, bullying, harassment, and other safety concerns.">
+        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=poppins:400,500,600,700" rel="stylesheet" />
 
@@ -301,7 +283,8 @@
                 .form-input, .form-select, .form-textarea {
                     width: 100%;
                     padding: 0.875rem 1rem;
-                    border: 2px solid var(--border-color);                    border-radius: 0.75rem;
+                    border: 2px solid var(--border-color);
+                    border-radius: 0.75rem;
                     font-size: 1rem;
                     transition: all 0.3s ease;
                     background: var(--background-white);
@@ -531,6 +514,7 @@
                     .form-card {
                         padding: 1rem;
                         margin: 0 0.25rem;
+                        border-radius: 1rem;
                     }
                     .form-card h2 {
                         font-size: 1.25rem;
@@ -703,6 +687,17 @@
                         <h2>Let's Get Started</h2>                        <form action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
+                            @if ($errors->any())
+                            <div style="background:#FEF2F2;color:#991B1B;border:1px solid #FCA5A5;border-radius:0.75rem;padding:1rem 1.25rem;margin-bottom:1rem;">
+                                <strong>There were some problems with your input:</strong>
+                                <ul style="margin-top:0.5rem;padding-left:1rem;">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
                             <!-- School Selection -->
                             <div class="form-group">
                                 <h3><i class="fas fa-school"></i> Select Your School</h3>
@@ -713,7 +708,7 @@
                                         <option value="">-- Select Your School --</option>
                                         @foreach($schools as $school)
                                             <option value="{{ $school->code }}" {{ old('school_code') == $school->code ? 'selected' : '' }}>
-                                                {{ $school->name }} ({{ $school->district }})
+                                                {{ $school->name }}{{ $school->district ? ' (' . $school->district . ')' : '' }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -728,7 +723,7 @@
                                 <h3><i class="fas fa-user-secret"></i> Do you want to stay secret?</h3>
                                 <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Check this if you don't want to share your name.</p>
                                 <label class="checkbox-label">
-                                    <input type="checkbox" id="is_anonymous" name="is_anonymous" value="1" checked class="checkbox-input">
+                                    <input type="checkbox" id="is_anonymous" name="is_anonymous" value="1" {{ old('is_anonymous', '1') ? 'checked' : '' }} class="checkbox-input">
                                     <span>Yes, keep me anonymous</span>
                                 </label>
                             </div>
@@ -739,24 +734,24 @@
                                 <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">If you want us to contact you, fill this out.</p>
                                 <div class="form-group">
                                     <label for="reporter_name" class="form-label">Your Full Name</label>
-                                    <textarea id="reporter_name" name="reporter_name" class="form-textarea" placeholder="Enter your full name"></textarea>
+                                    <textarea id="reporter_name" name="reporter_name" class="form-textarea" placeholder="Enter your full name">{{ old('reporter_name') }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="reporter_email" class="form-label">Your Email</label>
-                                    <input type="email" id="reporter_email" name="reporter_email" class="form-input">
+                                    <input type="email" id="reporter_email" name="reporter_email" class="form-input" value="{{ old('reporter_email') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="reporter_phone" class="form-label">Your Phone</label>
-                                    <input type="tel" id="reporter_phone" name="reporter_phone" class="form-input">
+                                    <input type="tel" id="reporter_phone" name="reporter_phone" class="form-input" value="{{ old('reporter_phone') }}">
                                 </div>
                                 <div class="grid-2">
                                     <div class="form-group">
                                         <label for="reporter_grade" class="form-label">Your Grade</label>
-                                        <input type="text" id="reporter_grade" name="reporter_grade" class="form-input">
+                                        <input type="text" id="reporter_grade" name="reporter_grade" class="form-input" value="{{ old('reporter_grade') }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="reporter_student_id" class="form-label">Student ID</label>
-                                        <input type="text" id="reporter_student_id" name="reporter_student_id" class="form-input">
+                                        <input type="text" id="reporter_student_id" name="reporter_student_id" class="form-input" value="{{ old('reporter_student_id') }}">
                                     </div>
                                 </div>
                             </div>
@@ -767,25 +762,38 @@
                                 <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Choose the best one that fits.</p>
                                 <select id="category" name="category" class="form-select" required>
                                     <option value="">Pick one</option>
-                                    <option value="bullying">Bullying</option>
-                                    <option value="harassment">Harassment</option>
-                                    <option value="violence">Violence</option>
-                                    <option value="other">Something else</option>
+                                    <option value="bullying" {{ old('category')==='bullying' ? 'selected' : '' }}>Bullying</option>
+                                    <option value="substance_abuse" {{ old('category')==='substance_abuse' ? 'selected' : '' }}>Substance Abuse</option>
+                                    <option value="sexual_harassment" {{ old('category')==='sexual_harassment' ? 'selected' : '' }}>Sexual Harassment</option>
+                                    <option value="weapons" {{ old('category')==='weapons' ? 'selected' : '' }}>Weapons</option>
+                                    <option value="teenage_pregnancy" {{ old('category')==='teenage_pregnancy' ? 'selected' : '' }}>Teenage Pregnancy</option>
+                                    <option value="violence" {{ old('category')==='violence' ? 'selected' : '' }}>Violence</option>
+                                    <option value="harassment" {{ old('category')==='harassment' ? 'selected' : '' }}>Harassment</option>
+                                    <option value="other" {{ old('category')==='other' ? 'selected' : '' }}>Something else</option>
                                 </select>
+                                @error('category')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Tell Us More -->
                             <div class="form-group">
                                 <h3><i class="fas fa-edit"></i> Tell us more</h3>
                                 <p style="font-size: 0.9rem; color: var (--text-secondary); margin-bottom: 0.75rem;">What happened? Write it here. Be as clear as you can.</p>
-                                <textarea id="description" name="description" class="form-textarea" placeholder="Type your story here..." required></textarea>
+                                <textarea id="description" name="description" class="form-textarea" placeholder="Type your story here..." required>{{ old('description') }}</textarea>
+                                @error('description')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Where Did It Happen -->
                             <div class="form-group">
                                 <h3><i class="fas fa-map-marker-alt"></i> Where did it happen?</h3>
                                 <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Tell us the place, like classroom, playground, or online.</p>
-                                <input type="text" id="location" name="location" class="form-input" placeholder="e.g., School hallway, Online chat">
+                                <input type="text" id="location" name="location" class="form-input" placeholder="e.g., School hallway, Online chat" value="{{ old('location') }}">
+                                @error('location')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- When Did It Happen -->
@@ -795,11 +803,11 @@
                                 <div class="grid-2">
                                     <div class="form-group">
                                         <label for="incident_date" class="form-label">Date</label>
-                                        <input type="date" id="incident_date" name="incident_date" class="form-input">
+                                        <input type="date" id="incident_date" name="incident_date" class="form-input" value="{{ old('incident_date') }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="incident_time" class="form-label">Time</label>
-                                        <input type="time" id="incident_time" name="incident_time" class="form-input">
+                                        <input type="time" id="incident_time" name="incident_time" class="form-input" value="{{ old('incident_time') }}">
                                     </div>
                                 </div>
                             </div>
@@ -808,14 +816,20 @@
                             <div class="form-group">
                                 <h3><i class="fas fa-users"></i> Who was involved?</h3>
                                 <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Names or descriptions of people involved (optional).</p>
-                                <textarea id="involved_parties" name="involved_parties" class="form-textarea" placeholder="e.g., Teacher name, other students"></textarea>
+                                <textarea id="involved_parties" name="involved_parties" class="form-textarea" placeholder="e.g., Teacher name, other students">{{ old('involved_parties') }}</textarea>
+                                @error('involved_parties')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Add Proof -->
                             <div class="form-group">
                                 <h3><i class="fas fa-camera"></i> Add a photo or file (if you have one)</h3>
                                 <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">This helps us understand better.</p>
-                                <input type="file" id="evidence" name="evidence[]" accept="image/*,video/*,audio/*,.pdf,.doc,.docx" class="form-input">
+                                <input type="file" id="evidence" name="evidence[]" accept="image/*,video/*,audio/*,.pdf,.doc,.docx" class="form-input" multiple>
+                                @error('evidence.*')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Submit -->

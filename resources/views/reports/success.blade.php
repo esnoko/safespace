@@ -364,7 +364,7 @@
         }
     </style>
 </head>
-<<body>
+<body>
     <!-- Header -->
     <header class="header">
         <div class="container">

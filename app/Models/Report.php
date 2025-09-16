@@ -31,7 +31,7 @@ class Report extends Model
     protected $casts = [
         'evidence_files' => 'array',
         'incident_date' => 'date',
-        'incident_time' => 'datetime',
+        'incident_time' => 'string',
         'resolved_at' => 'datetime',
         'is_anonymous' => 'boolean',
     ];
@@ -82,5 +82,10 @@ class Report extends Model
         ];
 
         return $statuses[$this->status] ?? $this->status;
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_code', 'code');
     }
 }

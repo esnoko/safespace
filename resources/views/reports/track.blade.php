@@ -50,20 +50,21 @@
             </p>
         </div>
 
-        <!-- Privacy Notice -->
-        <div class="bg-secondary border border-primary/20 rounded-lg p-6 mb-8">
+        @if ($errors->any())
+        <div class="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 mb-8">
             <div class="flex items-start">
-                <div class="bg-primary text-white p-2 rounded-lg mr-4 mt-1">
-                    <i class="fas fa-shield-alt text-lg"></i>
-                </div>
-                <div>                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Your Privacy Remains Protected</h3>
-                    <p class="text-gray-700">
-                        Only the case number you were given can access your report details. 
-                        No personal information is displayed or stored in our tracking system.
-                    </p>
+                <i class="fas fa-exclamation-triangle mr-3 mt-1"></i>
+                <div>
+                    <p class="font-semibold">Please fix the following:</p>
+                    <ul class="list-disc list-inside mt-2 text-sm">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
+        @endif
 
         <!-- Tracking Form -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
