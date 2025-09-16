@@ -53,10 +53,12 @@
 
         <!-- Report Information Card -->
         <div class="bg-white rounded-lg shadow-lg border border-gray-200 p-8 mb-8">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">                <div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">Report Details</h2>
                     <p class="text-gray-600">Reference: <span class="font-mono font-bold text-primary">{{ $report->reference_number }}</span></p>
+                    @if($report->school)
+                        <p class="text-gray-600 mt-1">School: <span class="font-semibold">{{ $report->school->name }}</span> ({{ $report->school->district }})</p>
+                    @endif
                 </div>
                 <div class="mt-4 md:mt-0">
                     @php

@@ -277,25 +277,13 @@
 
 <body>
     <!-- Header -->
-    <header class="header">
-        <div class="container">
+    <header class="header">        <div class="container">
             <nav class="nav">
                 <div class="logo">SafeSpace</div>
-                @if (Route::has('login'))
-                    <ul class="nav-links">
-                        @auth
-                            <li>
-                                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
-                                    Admin Dashboard
-                                </a>
-                            </li>
-                        @else
-                            <li>
-                                <a href="{{ route('login') }}" class="nav-link">Admin Login</a>
-                            </li>
-                        @endauth
-                    </ul>
-                @endif
+                <ul class="nav-links">
+                    <li><a href="{{ route('reports.create') }}" class="nav-link">Report Incident</a></li>
+                    <li><a href="{{ route('reports.track') }}" class="nav-link">Track Report</a></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -305,12 +293,9 @@
         <div class="container">
             <h1>SafeSpace: Report Abuse Safely and Anonymously</h1>
             <p>A confidential platform designed to protect and empower learners and employees to speak out - with the
-                option to report anonymously</p>
-
-            <div class="hero-buttons">
+                option to report anonymously</p>            <div class="hero-buttons">
                 <a href="{{ route('reports.create') }}" class="btn btn-primary">Report Now</a>
                 <a href="{{ route('reports.track') }}" class="btn btn-outline white">Track Report</a>
-                <a href="{{ route('login') }}" class="btn btn-outline white">Admin Login</a>
             </div>
         </div>
     </section>

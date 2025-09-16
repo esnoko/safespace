@@ -397,6 +397,13 @@
                         <div class="reference-number" id="reference-number">
                             {{ $report->reference_number }}
                         </div>
+                        @if($report->school)
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(5, 150, 105, 0.1); border-radius: 0.5rem; border-left: 3px solid var(--primary-color);">
+                                <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">School:</div>
+                                <div style="font-weight: 600; color: var(--text-primary);">{{ $report->school->name }}</div>
+                                <div style="font-size: 0.875rem; color: var(--text-secondary);">{{ $report->school->district }}, {{ $report->school->province }}</div>
+                            </div>
+                        @endif
                         <button onclick="copyReference()" class="btn btn-primary">
                             <i class="fas fa-copy" style="margin-right: 0.5rem;"></i>Copy Case Number
                         </button>
