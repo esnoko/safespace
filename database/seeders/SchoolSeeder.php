@@ -14,55 +14,23 @@ class SchoolSeeder extends Seeder
      */
     public function run(): void
     {
-        $schools = [
+        School::updateOrCreate(
+            ['code' => 'TEST01'],
             [
-                'code' => 'NHS',
-                'name' => 'Northfield High School',
+                'name' => 'Test School',
                 'province' => 'Gauteng',
-                'description' => 'A leading secondary school committed to student safety and wellbeing.',
-                'contact_email' => 'admin@northfield.edu',
-                'contact_phone' => '+1-555-0101',
-                'address' => '123 Education Drive, Northfield, State 12345',
-                'admin_password' => Hash::make('nhs2025!'),
+                'district' => 'Johannesburg',
+                'type' => 'Secondary',
+                'status' => 'active',
+                'admin_password' => Hash::make('pasword1'),
+                'address' => '123 Main St',
+                'phone' => '0123456789',
+                'email' => 'elvisnoko18@gmail.com',
+                'description' => 'Seeded test school',
+                'contact_email' => 'elvisnoko18@gmail.com',
+                'contact_phone' => '0123456789',
                 'is_active' => true,
-            ],
-            [
-                'code' => 'RGHS',
-                'name' => 'Royal Grammar High School',
-                'province' => 'Gauteng',
-                'description' => 'Excellence in education with a focus on student safety and support.',
-                'contact_email' => 'admin@royalgrammar.edu',
-                'contact_phone' => '+1-555-0202',
-                'address' => '456 Academic Lane, Royal City, State 12346',
-                'admin_password' => Hash::make('rghs2025!'),
-                'is_active' => true,
-            ],
-            [
-                'code' => 'STMARY',
-                'name' => 'St. Mary\'s Academy',
-                'province' => 'Gauteng',
-                'description' => 'A caring community school prioritizing student wellbeing and safety.',
-                'contact_email' => 'admin@stmarys.edu',
-                'contact_phone' => '+1-555-0303',
-                'address' => '789 Faith Street, Maryville, State 12347',
-                'admin_password' => Hash::make('stmary2025!'),
-                'is_active' => true,
-            ],
-            [
-                'code' => 'WESTSIDE',
-                'name' => 'Westside Community College',
-                'province' => 'Gauteng',
-                'description' => 'Higher education institution focused on student safety and success.',
-                'contact_email' => 'admin@westside.edu',
-                'contact_phone' => '+1-555-0404',
-                'address' => '101 College Blvd, Westside, State 12348',
-                'admin_password' => Hash::make('westside2025!'),
-                'is_active' => true,
-            ],
-        ];
-
-        foreach ($schools as $school) {
-            School::create($school);
-        }
+            ]
+        );
     }
 }
