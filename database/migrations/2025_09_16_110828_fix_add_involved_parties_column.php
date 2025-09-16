@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->text('involved_parties')->nullable()->after('incident_time');
+            // Check if column doesn't exist before adding
+            if (!Schema::hasColumn('reports', 'involved_parties')) {
+                $table->text('involved_parties')->nullable()->after('incident_time');
+            }
         });
     }
 
@@ -22,7 +25,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('involved_parties');
+            if (Schema::hasColumn('reports', 'involved_parties')) {
+                $table->dropColumn('involved_parties');
+            }
         });
     }
 };

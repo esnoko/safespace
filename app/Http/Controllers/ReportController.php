@@ -105,7 +105,8 @@ class ReportController extends Controller
     public function checkStatus(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'reference_number' => 'required|string|size:12'
+            // Accept reference numbers with minimum 10 characters (update as needed)
+            'reference_number' => 'required|string|min:10|max:32'
         ]);
 
         if ($validator->fails()) {
@@ -146,5 +147,12 @@ class ReportController extends Controller
             'Content-Type' => $evidenceFile['mime_type'],
             'Content-Disposition' => 'inline; filename="' . $evidenceFile['original_name'] . '"'
         ]);
+    }
+
+    // TEMP DEBUG: List recent reports for troubleshooting
+    public function debugReports()
+    {
+        $reports = Report::orderBy('id', 'desc')->take(10)->get(['id', 'reference_number', 'school_code', 'created_at']);
+        return response()->json($reports);
     }
 }

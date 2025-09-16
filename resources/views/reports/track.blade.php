@@ -81,14 +81,14 @@
                             value="{{ old('reference_number') }}"
                             class="w-full px-4 py-4 text-lg font-mono border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-center tracking-wider"
                             placeholder="SS########YY"
-                            maxlength="12"
+                            maxlength="32"
                             required
                             autocomplete="off">
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                             <i class="fas fa-key text-gray-400"></i>
                         </div>
                     </div>                    <p class="text-sm text-gray-500 mt-2">
-                        Enter the 12-character case number you received when you submitted your report.
+                        Enter your case number you received when you submitted your report.
                     </p>
                     @error('reference_number')
                         <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -243,12 +243,12 @@
         const referenceInput = document.getElementById('reference_number');
         
         referenceInput.addEventListener('input', function() {
-            // Convert to uppercase and remove any non-alphanumeric characters
-            this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            // Convert to uppercase and allow hyphens
+            this.value = this.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
             
-            // Limit to 12 characters
-            if (this.value.length > 12) {
-                this.value = this.value.slice(0, 12);
+            // Limit to 32 characters
+            if (this.value.length > 32) {
+                this.value = this.value.slice(0, 32);
             }
         });
         

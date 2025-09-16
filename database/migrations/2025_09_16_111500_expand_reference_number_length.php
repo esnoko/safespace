@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->text('involved_parties')->nullable()->after('incident_time');
+            $table->string('reference_number', 32)->change();
         });
     }
 
@@ -22,7 +22,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('involved_parties');
+            // Safely revert by dropping and re-adding the column
+            $table->dropColumn('reference_number');
+            $table->string('reference_number', 12)->unique();
         });
     }
 };

@@ -16,3 +16,6 @@ Route::prefix('reports')->group(function () {
     Route::post('/status', [ReportController::class, 'checkStatus'])->name('reports.status');
     Route::get('/evidence/{reference_number}/{filename}', [ReportController::class, 'serveEvidence'])->name('reports.evidence');
 });
+
+// TEMP DEBUG ROUTE: List recent reports for troubleshooting
+Route::get('/debug/reports', [\App\Http\Controllers\ReportController::class, 'debugReports']);

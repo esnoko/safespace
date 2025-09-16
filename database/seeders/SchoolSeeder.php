@@ -18,6 +18,7 @@ class SchoolSeeder extends Seeder
             [
                 'code' => 'NHS',
                 'name' => 'Northfield High School',
+                'province' => 'Gauteng',
                 'description' => 'A leading secondary school committed to student safety and wellbeing.',
                 'contact_email' => 'admin@northfield.edu',
                 'contact_phone' => '+1-555-0101',
@@ -28,6 +29,7 @@ class SchoolSeeder extends Seeder
             [
                 'code' => 'RGHS',
                 'name' => 'Royal Grammar High School',
+                'province' => 'Gauteng',
                 'description' => 'Excellence in education with a focus on student safety and support.',
                 'contact_email' => 'admin@royalgrammar.edu',
                 'contact_phone' => '+1-555-0202',
@@ -38,6 +40,7 @@ class SchoolSeeder extends Seeder
             [
                 'code' => 'STMARY',
                 'name' => 'St. Mary\'s Academy',
+                'province' => 'Gauteng',
                 'description' => 'A caring community school prioritizing student wellbeing and safety.',
                 'contact_email' => 'admin@stmarys.edu',
                 'contact_phone' => '+1-555-0303',
@@ -48,6 +51,7 @@ class SchoolSeeder extends Seeder
             [
                 'code' => 'WESTSIDE',
                 'name' => 'Westside Community College',
+                'province' => 'Gauteng',
                 'description' => 'Higher education institution focused on student safety and success.',
                 'contact_email' => 'admin@westside.edu',
                 'contact_phone' => '+1-555-0404',

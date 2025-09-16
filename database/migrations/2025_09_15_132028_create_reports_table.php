@@ -20,6 +20,8 @@ return new class extends Migration
                 'sexual_harassment', 
                 'weapons', 
                 'teenage_pregnancy', 
+                'violence',
+                'harassment',
                 'other'
             ]);
             $table->text('description');

@@ -23,6 +23,10 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('email', 100)->nullable();
+            $table->text('description')->nullable();
+            $table->string('contact_email', 100)->nullable();
+            $table->string('contact_phone', 20)->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
