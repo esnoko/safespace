@@ -14,4 +14,5 @@ Route::prefix('reports')->group(function () {
     Route::get('/success/{reference}', [ReportController::class, 'success'])->name('reports.success');
     Route::get('/track', [ReportController::class, 'track'])->name('reports.track');
     Route::post('/status', [ReportController::class, 'checkStatus'])->name('reports.status');
+    Route::get('/evidence/{reference_number}/{filename}', [ReportController::class, 'serveEvidence'])->name('reports.evidence');
 });

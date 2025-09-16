@@ -164,13 +164,46 @@
                         <i class="fas fa-calendar-check text-green-500 mr-2"></i>{{ $report->created_at->format('M d, Y \a\t g:i A') }}
                     </p>
                 </div>
-                
-                @if($report->evidence_files && count($report->evidence_files) > 0)
+                  @if($report->evidence_files && count($report->evidence_files) > 0)
                 <div class="md:col-span-2">
-                    <h3 class="font-semibold text-gray-900 mb-2">Evidence Submitted</h3>
-                    <div class="bg-gray-50 p-3 rounded-lg">
-                        <i class="fas fa-paperclip text-primary mr-2"></i>
-                        <span class="text-gray-700">{{ count($report->evidence_files) }} file(s) attached</span>
+                    <h3 class="font-semibold text-gray-900 mb-4">Evidence Submitted</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach($report->evidence_files as $file)
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                @if(str_starts_with($file['mime_type'], 'image/'))
+                                    <!-- Image Evidence -->
+                                    <div class="mb-3">
+                                        <img src="{{ route('reports.evidence', ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}" 
+                                             alt="{{ $file['original_name'] }}"
+                                             class="w-full h-32 object-cover rounded-lg border border-gray-300 cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                                             onclick="openImageModal('{{ route('reports.evidence', ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}', '{{ $file['original_name'] }}')">
+                                    </div>
+                                @else
+                                    <!-- Non-Image Evidence -->
+                                    <div class="mb-3 flex items-center justify-center h-32 bg-gray-100 rounded-lg border border-gray-300">
+                                        <div class="text-center">
+                                            <i class="fas fa-file-alt text-4xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-600">{{ strtoupper(pathinfo($file['original_name'], PATHINFO_EXTENSION)) }} File</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                
+                                <div class="text-sm">
+                                    <p class="font-medium text-gray-900 truncate" title="{{ $file['original_name'] }}">
+                                        <i class="fas fa-paperclip text-primary mr-1"></i>
+                                        {{ $file['original_name'] }}
+                                    </p>
+                                    <p class="text-gray-500 mt-1">
+                                        {{ number_format($file['size'] / 1024, 1) }} KB
+                                    </p>
+                                    <a href="{{ route('reports.evidence', ['reference_number' => $report->reference_number, 'filename' => $file['stored_name']]) }}" 
+                                       target="_blank"
+                                       class="inline-block mt-2 text-primary hover:text-primary-dark text-sm font-medium">
+                                        <i class="fas fa-external-link-alt mr-1"></i>View
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 @endif
@@ -309,8 +342,51 @@
                     <span class="bg-white px-3 py-1 rounded-full">National Suicide Prevention: 988</span>
                     <span class="bg-white px-3 py-1 rounded-full">Teen Helpline: 1-800-852-8336</span>
                 </div>
+            </div>        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 items-center justify-center p-4" style="display: none;">
+        <div class="relative max-w-4xl max-h-full">
+            <button onclick="closeImageModal()" 
+                    class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <img id="modalImage" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg">
+            <div class="absolute bottom-4 left-4 right-4 bg-black bg-opacity-50 text-white p-3 rounded-lg">
+                <p id="modalImageName" class="text-center font-medium"></p>
             </div>
         </div>
     </div>
+
+    <script>
+        function openImageModal(imageSrc, imageName) {
+            const modal = document.getElementById('imageModal');
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalImageName').textContent = imageName;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
 </body>
 </html>

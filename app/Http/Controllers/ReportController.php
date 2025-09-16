@@ -117,4 +117,31 @@ class ReportController extends Controller
 
         return view('reports.status', compact('report'));
     }
+
+    /**
+     * Serve evidence file securely
+     */
+    public function serveEvidence($reference_number, $filename)
+    {
+        // Find the report by reference number
+        $report = Report::where('reference_number', $reference_number)->firstOrFail();
+        
+        // Check if the file exists in the report's evidence
+        $evidenceFile = collect($report->evidence_files)->firstWhere('stored_name', $filename);
+        
+        if (!$evidenceFile) {
+            abort(404, 'File not found');
+        }
+        
+        $filePath = storage_path('app/private/' . $evidenceFile['path']);
+        
+        if (!file_exists($filePath)) {
+            abort(404, 'File not found on disk');
+        }
+        
+        return response()->file($filePath, [
+            'Content-Type' => $evidenceFile['mime_type'],
+            'Content-Disposition' => 'inline; filename="' . $evidenceFile['original_name'] . '"'
+        ]);
+    }
 }
