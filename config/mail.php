@@ -115,4 +115,16 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Email Configuration
+    |--------------------------------------------------------------------------
+    |
+    | This is the email address where admin notifications will be sent
+    | when new reports are submitted to the SafeSpace system.
+    |
+    */
+
+    'admin_email' => env('MAIL_ADMIN_EMAIL', 'admin@safespace.local'),
+
 ];

@@ -5,16 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Quick Report - SafeSpace</title>
-        <meta name="description" content="SafeSpace is a secure platform for anonymous reporting of abuse, bullying, harassment, and other safety concerns.">
-
-        <!-- Fonts -->
+        <meta name="description" content="SafeSpace is a secure platform for anonymous reporting of abuse, bullying, harassment, and other safety concerns.">        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=poppins:400,500,600,700" rel="stylesheet" />
 
-        <!-- Styles / Scripts -->
-        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @else            <style>
+        <!-- Inline Styles -->
+        <style>
                 /*! SafeSpace Advanced Professional Styles for Kids */
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
                 :root {
@@ -286,12 +282,11 @@
                 .form-input, .form-select, .form-textarea {
                     width: 100%;
                     padding: 0.875rem 1rem;
-                    border: 2px solid var(--border-color);
-                    border-radius: 0.75rem;
+                    border: 2px solid var(--border-color);                    border-radius: 0.75rem;
                     font-size: 1rem;
                     transition: all 0.3s ease;
                     background: var(--background-white);
-                    color: var (--text-primary);
+                    color: var(--text-primary);
                 }
                 .form-input:focus, .form-select:focus, .form-textarea:focus {
                     outline: none;
@@ -658,9 +653,7 @@
                     .nav-links {
                         display: none;
                     }
-                }
-            </style>
-        @endif
+                }            </style>
     </head>
 <body>
         <header class="header">

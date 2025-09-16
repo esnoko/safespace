@@ -1,1 +1,3 @@
 SSGWABJECS25
+admin@safespace.local
+admin123

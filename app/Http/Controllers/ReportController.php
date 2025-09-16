@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Report;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
@@ -81,9 +80,6 @@ class ReportController extends Controller
         }
 
         $report = Report::create($reportData);
-
-        // Send notification email to admin (you'll need to configure this)
-        // Mail::to(config('app.admin_email'))->send(new NewReportNotification($report));
 
         return redirect()->route('reports.success', ['reference' => $report->reference_number]);
     }
