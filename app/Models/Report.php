@@ -9,6 +9,7 @@ class Report extends Model
 {
     protected $fillable = [
         'reference_number',
+        'school_code',
         'is_anonymous',
         'reporter_name',
         'reporter_email',
@@ -20,6 +21,7 @@ class Report extends Model
         'location',
         'incident_date',
         'incident_time',
+        'involved_parties',
         'evidence_files',
         'status',
         'admin_notes',
@@ -39,14 +41,18 @@ class Report extends Model
         parent::boot();
         
         static::creating(function ($report) {
-            $report->reference_number = static::generateCaseNumber();
+            $report->reference_number = static::generateCaseNumber($report->school_code);
         });
     }
 
-    public static function generateCaseNumber()
+    public static function generateCaseNumber($schoolCode = null)
     {
         do {
-            $reference = 'SS' . strtoupper(Str::random(8)) . date('y');
+            if ($schoolCode) {
+                $reference = $schoolCode . '-SS' . strtoupper(Str::random(6)) . date('y');
+            } else {
+                $reference = 'SS' . strtoupper(Str::random(8)) . date('y');
+            }
         } while (static::where('reference_number', $reference)->exists());
         
         return $reference;

@@ -1,417 +1,343 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SafeSpace - Your Voice Matters</title>
-    
+    <title>SafeSpace - Anonymous Abuse Reporting System</title>
+    <meta name="description"
+        content="SafeSpace is a secure platform for anonymous reporting of abuse, bullying, harassment, and other safety concerns.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=poppins:400,500,600,700"
+        rel="stylesheet" />
+
     <style>
+        /*! SafeSpace Custom Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #059669;
+            --primary-dark: #047857;
+            --primary-light: #10b981;
+            --secondary-color: #6b7280;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-light: #f9fafb;
+            --background-white: #ffffff;
+            --background-cream: #f8fafc;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --accent-green: #34d399;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%);
             min-height: 100vh;
-            color: #1e293b;
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 1rem;
         }
 
+        /* Header Styles */
         .header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .logo-icon {
-            width: 4rem;
-            height: 4rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo-text {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: white;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .tagline {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 1rem;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .action-card {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .action-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .card-icon {
-            width: 5rem;
-            height: 5rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 1rem;
+        .nav {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            padding: 1rem 0;
         }
 
-        .card-title {
-            font-size: 1.75rem;
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
+            color: var(--primary-color);
         }
 
-        .card-description {
-            color: #475569;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-            line-height: 1.7;
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            background: var(--background-light);
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
             font-weight: 600;
-            font-size: 1.1rem;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
             border: none;
             cursor: pointer;
+            font-size: 0.875rem;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: var(--primary-color);
             color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-lg);
         }
 
-        .btn-secondary {
-            background: linear-gradient(135deg, #10b981, #059669);
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
             color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        .btn-outline.white {
+            color: white;
+            border-color: white;
         }
 
-        .features-section {
-            margin-bottom: 4rem;
+        .btn-outline.white:hover {
+            background: white;
+            color: var(--primary-color);
         }
 
-        .features-title {
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
             text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.8) 0%, rgba(4, 120, 87, 0.9) 100%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* Trust Statement Section */
+        .trust-statement {
+            padding: 4rem 0;
+            background: var(--background-white);
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .trust-statement h2 {
+            font-family: 'Poppins', sans-serif;
             font-size: 2.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 1rem;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            width: 4rem;
-            height: 4rem;
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin: 0 auto 1.5rem;
-        }
-
-        .feature-title {
             font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            position: relative;
         }
 
-        .feature-description {
-            color: #475569;
-            line-height: 1.6;
+        .trust-statement h2::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
         }
 
-        .admin-section {
-            margin-top: 4rem;
-            text-align: center;
-        }
-
-        .admin-card {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            max-width: 400px;
+        .trust-statement p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
             margin: 0 auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            line-height: 1.7;
         }
 
-        .admin-icon {
-            width: 4rem;
-            height: 4rem;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin: 0 auto 1.5rem;
-        }
-
-        .admin-title {
-            font-weight: 700;
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-        }
-
-        .admin-description {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .btn-admin {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-
-        .btn-admin:hover {
-            transform: translateY(-2px);
-        }
-
+        /* Footer */
         .footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 2rem 0;
             text-align: center;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.8);
         }
 
+        .footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
             }
-            
-            .logo-text {
+
+            .hero h1 {
                 font-size: 2.5rem;
             }
-            
-            .main-grid {
-                grid-template-columns: 1fr;
+
+            .hero p {
+                font-size: 1.1rem;
             }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo-container">
-                <div class="logo-icon">🛡️</div>
-                <h1 class="logo-text">SafeSpace</h1>
-            </div>
-            <p class="tagline">Your Voice Matters. Your Safety Comes First.</p>
-            <p class="subtitle">
-                A secure, confidential platform where students can report incidents and seek help without fear. 
-                Every voice deserves to be heard.
-            </p>
-        </header>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">SafeSpace</div>
+                @if (Route::has('login'))
+                    <ul class="nav-links">
+                        @auth
+                            <li>
+                                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
+                                    Admin Dashboard
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{ route('login') }}" class="nav-link">Admin Login</a>
+                            </li>
+                        @endauth
+                    </ul>
+                @endif
+            </nav>
+        </div>
+    </header>
 
-        <div class="main-grid">
-            <div class="action-card">
-                <div class="card-icon">📝</div>
-                <h2 class="card-title">Submit Report</h2>
-                <p class="card-description">
-                    Report incidents safely and confidentially. Choose to remain anonymous or provide your details - 
-                    the choice is yours. Your report helps create a safer environment for everyone.
-                </p>
-                <a href="{{ route('reports.create') }}" class="btn btn-primary">
-                    Start Report
-                    <span>→</span>
-                </a>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>SafeSpace: Report Abuse Safely and Anonymously</h1>
+            <p>A confidential platform designed to protect and empower learners and employees to speak out - with the
+                option to report anonymously</p>
 
-            <div class="action-card">
-                <div class="card-icon">🔍</div>
-                <h2 class="card-title">Track Report</h2>
-                <p class="card-description">
-                    Follow up on your submitted report using your unique case number. 
-                    Stay informed about the progress and resolution of your case.
-                </p>
-                <a href="{{ route('reports.track') }}" class="btn btn-secondary">
-                    Track Progress
-                    <span>📊</span>
-                </a>
+            <div class="hero-buttons">
+                <a href="{{ route('reports.create') }}" class="btn btn-primary">Report Now</a>
+                <a href="{{ route('reports.track') }}" class="btn btn-outline white">Track Report</a>
+                <a href="{{ route('login') }}" class="btn btn-outline white">Admin Login</a>
             </div>
         </div>
+    </section>
 
-        <section class="features-section">
-            <h2 class="features-title">Why Choose SafeSpace?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3 class="feature-title">100% Confidential</h3>
-                    <p class="feature-description">
-                        Your privacy is our priority. Report anonymously with complete confidence.
-                    </p>
-                </div>
+    <!-- Trust Statement Section -->
+    <section class="trust-statement">
+        <div class="container">
+            <h2>Your voice matters. Your identity is protected</h2>
+            <p>We understand that speaking out takes courage. That's why SafeSpace is built with your privacy and safety
+                as our top priority. Every report is handled with the utmost confidentiality.</p>
+        </div>
+    </section>
 
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3 class="feature-title">Quick & Simple</h3>
-                    <p class="feature-description">
-                        Easy-to-use interface designed for students. Submit reports in minutes.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3 class="feature-title">Mobile Ready</h3>
-                    <p class="feature-description">
-                        Access SafeSpace from any device - smartphone, tablet, or computer.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Real-Time Tracking</h3>
-                    <p class="feature-description">
-                        Get a unique case number to track your report's status in real-time.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
-                    <h3 class="feature-title">Professional Support</h3>
-                    <p class="feature-description">
-                        Trained professionals review every report with care and discretion.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📁</div>
-                    <h3 class="feature-title">Evidence Upload</h3>
-                    <p class="feature-description">
-                        Securely attach photos or documents to support your report.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section class="admin-section">
-            <div class="admin-card">
-                <div class="admin-icon">🏫</div>
-                <h3 class="admin-title">School Administrator</h3>
-                <p class="admin-description">
-                    Access the administrative dashboard to review and manage reports. 
-                    Secure login required for authorized personnel only.
-                </p>
-                <button onclick="promptAdminAccess()" class="btn btn-admin">
-                    Admin Access
-                    <span>🔑</span>
-                </button>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <p>&copy; {{ date('Y') }} SafeSpace. Creating safer learning environments, one voice at a time.</p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; {{ date('Y') }} SafeSpace. All rights reserved. Your safety is our priority.</p>
+        </div>
+    </footer>
 
     <script>
-        function promptAdminAccess() {
-            const password = prompt("🔐 Enter administrator password:");
-            if (password === "admin123") {
-                window.location.href = "/admin";
-            } else if (password !== null && password !== "") {
-                alert("❌ Access denied. Please contact your system administrator.");
-            }
-        }
+        // Simple JavaScript for the links
+        document.addEventListener('DOMContentLoaded', function() {
+            // All links should work properly now
+            console.log('SafeSpace loaded successfully');
+        });
     </script>
 </body>
+
 </html>

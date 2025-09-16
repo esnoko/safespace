@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Report;
+use App\Models\School;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,12 +12,17 @@ class ReportController extends Controller
 {
     public function create()
     {
-        return view('reports.create');
+        $schools = School::where('status', 'active')
+                        ->orderBy('name')
+                        ->get();
+        
+        return view('reports.create', compact('schools'));
     }
 
     public function store(Request $request)
     {
         $rules = [
+            'school_code' => 'required|exists:schools,code',
             'is_anonymous' => 'nullable|boolean',
             'category' => 'required|in:bullying,harassment,violence,other',
             'description' => 'required|string|min:10|max:2000',
@@ -60,6 +66,7 @@ class ReportController extends Controller
         }
 
         $reportData = [
+            'school_code' => $request->school_code,
             'is_anonymous' => $request->filled('is_anonymous'),
             'category' => $request->category,
             'description' => $request->description,

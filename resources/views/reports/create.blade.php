@@ -5,7 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Quick Report - SafeSpace</title>
-        <meta name="description" content="SafeSpace is a secure platform for anonymous reporting of abuse, bullying, harassment, and other safety concerns.">        <!-- Fonts -->
+        <meta name="description" content="SafeSpace i                .form-select {
+                    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+                    background-position: right 0.75rem center;
+                    background-repeat: no-repeat;
+                    background-size: 1rem;
+                    padding-right: 3rem;
+                }
+
+                .error-message {
+                    color: var(--error-color);
+                    font-size: 0.875rem;
+                    margin-top: 0.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                }
+                .error-message::before {
+                    content: '⚠️';
+                    font-size: 0.75rem;
+                }ure platform for anonymous reporting of abuse, bullying, harassment, and other safety concerns.">        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=poppins:400,500,600,700" rel="stylesheet" />
 
@@ -681,10 +700,28 @@
                 <!-- Form Section -->
                 <section class="form-section">
                     <div class="form-card">
-                        <h2>Let's Get Started</h2>
-
-                        <form action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data">
+                        <h2>Let's Get Started</h2>                        <form action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+
+                            <!-- School Selection -->
+                            <div class="form-group">
+                                <h3><i class="fas fa-school"></i> Select Your School</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Choose your school from the list below.</p>
+                                <div class="form-group">
+                                    <label for="school_code" class="form-label">School Name *</label>
+                                    <select id="school_code" name="school_code" class="form-select" required>
+                                        <option value="">-- Select Your School --</option>
+                                        @foreach($schools as $school)
+                                            <option value="{{ $school->code }}" {{ old('school_code') == $school->code ? 'selected' : '' }}>
+                                                {{ $school->name }} ({{ $school->district }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('school_code')
+                                        <div class="error-message">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
                             <!-- Anonymous -->
                             <div class="form-group">
