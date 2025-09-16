@@ -18,17 +18,18 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'is_anonymous' => 'required|boolean',
-            'category' => 'required|in:bullying,substance_abuse,sexual_harassment,weapons,teenage_pregnancy,other',
+            'is_anonymous' => 'nullable|boolean',
+            'category' => 'required|in:bullying,harassment,violence,other',
             'description' => 'required|string|min:10|max:2000',
             'location' => 'nullable|string|max:255',
             'incident_date' => 'nullable|date|before_or_equal:today',
             'incident_time' => 'nullable|date_format:H:i',
-            'evidence_files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,mp4,mp3|max:10240' // 10MB max
+            'involved_parties' => 'nullable|string|max:1000',
+            'evidence.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,mp4,mp3|max:10240' // 10MB max
         ];
 
         // Add validation rules for non-anonymous reports
-        if (!$request->is_anonymous) {
+        if (!$request->filled('is_anonymous')) {
             $rules['reporter_name'] = 'required|string|max:255';
             $rules['reporter_email'] = 'required|email|max:255';
             $rules['reporter_phone'] = 'nullable|string|max:20';
@@ -45,8 +46,8 @@ class ReportController extends Controller
         $evidenceFiles = [];
         
         // Handle file uploads
-        if ($request->hasFile('evidence_files')) {
-            foreach ($request->file('evidence_files') as $file) {
+        if ($request->hasFile('evidence')) {
+            foreach ($request->file('evidence') as $file) {
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('evidence', $filename, 'private');
                 $evidenceFiles[] = [
@@ -60,17 +61,18 @@ class ReportController extends Controller
         }
 
         $reportData = [
-            'is_anonymous' => $request->is_anonymous,
+            'is_anonymous' => $request->filled('is_anonymous'),
             'category' => $request->category,
             'description' => $request->description,
             'location' => $request->location,
             'incident_date' => $request->incident_date,
             'incident_time' => $request->incident_time,
+            'involved_parties' => $request->involved_parties,
             'evidence_files' => $evidenceFiles,
         ];
 
         // Add reporter information if not anonymous
-        if (!$request->is_anonymous) {
+        if (!$request->filled('is_anonymous')) {
             $reportData['reporter_name'] = $request->reporter_name;
             $reportData['reporter_email'] = $request->reporter_email;
             $reportData['reporter_phone'] = $request->reporter_phone;
