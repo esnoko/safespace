@@ -713,12 +713,8 @@
             <div class="container">
                 <p>&copy; {{ date('Y') }} SafeSpace. All rights reserved. Your safety is our priority.</p>
             </div>
-        </footer>
-
-        <script>            function startAnonymousReport() {
-                alert('Anonymous reporting feature will be implemented in the next phase. This will take you to the report form.');
-                // TODO: Redirect to anonymous report form
-                // window.location.href = '/report/anonymous';
+        </footer>        <script>            function startAnonymousReport() {
+                window.location.href = '{{ route("reports.create") }}';
             }
 
             function showLogin() {
@@ -728,15 +724,11 @@
             }
 
             function trackReport() {
-                alert('Case tracking feature will be implemented in the next phase. You can track your report using your reference number.');
-                // TODO: Redirect to case tracking page
-                // window.location.href = '/track-report';
+                window.location.href = '{{ route("reports.track") }}';
             }
 
             function selectReportType(type) {
-                alert(`Selected report type: ${type}. This will take you to the specific reporting form for ${type}.`);
-                // TODO: Redirect to specific report form
-                // window.location.href = `/report/${type}`;
+                window.location.href = '{{ route("reports.create") }}';
             }
 
             // Add smooth scrolling for anchor links

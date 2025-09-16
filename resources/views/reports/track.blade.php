@@ -44,10 +44,9 @@
         <div class="text-center mb-12">
             <div class="bg-primary text-white p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
                 <i class="fas fa-search text-3xl"></i>
-            </div>
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">Track Your Report</h1>
+            </div>            <h1 class="text-4xl font-bold text-gray-900 mb-4">Track Your Report</h1>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Enter your reference number to check the current status of your report.
+                Enter your case number to check the current status of your report.
             </p>
         </div>
 
@@ -57,10 +56,9 @@
                 <div class="bg-primary text-white p-2 rounded-lg mr-4 mt-1">
                     <i class="fas fa-shield-alt text-lg"></i>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Your Privacy Remains Protected</h3>
+                <div>                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Your Privacy Remains Protected</h3>
                     <p class="text-gray-700">
-                        Only the reference number you were given can access your report details. 
+                        Only the case number you were given can access your report details. 
                         No personal information is displayed or stored in our tracking system.
                     </p>
                 </div>
@@ -69,12 +67,11 @@
 
         <!-- Tracking Form -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
-            <form action="{{ route('reports.check-status') }}" method="POST" class="space-y-6">
+            <form action="{{ route('reports.status') }}" method="POST" class="space-y-6">
                 @csrf
                 
-                <div>
-                    <label for="reference_number" class="block text-lg font-semibold text-gray-900 mb-4">
-                        <i class="fas fa-hashtag mr-2 text-primary"></i>Reference Number
+                <div>                    <label for="reference_number" class="block text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-hashtag mr-2 text-primary"></i>Case Number
                     </label>
                     <div class="relative">
                         <input 
@@ -90,9 +87,8 @@
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                             <i class="fas fa-key text-gray-400"></i>
                         </div>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-2">
-                        Enter the 12-character reference number you received when you submitted your report.
+                    </div>                    <p class="text-sm text-gray-500 mt-2">
+                        Enter the 12-character case number you received when you submitted your report.
                     </p>
                     @error('reference_number')
                         <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -115,9 +111,8 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Reference Number Format -->
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
-                        <i class="fas fa-info-circle text-blue-500 mr-2"></i>Reference Number Format
+                <div>                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-info-circle text-blue-500 mr-2"></i>Case Number Format
                     </h3>
                     <div class="space-y-3">
                         <div class="bg-gray-50 p-4 rounded-lg">

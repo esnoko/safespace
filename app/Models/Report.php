@@ -39,11 +39,11 @@ class Report extends Model
         parent::boot();
         
         static::creating(function ($report) {
-            $report->reference_number = static::generateReferenceNumber();
+            $report->reference_number = static::generateCaseNumber();
         });
     }
 
-    public static function generateReferenceNumber()
+    public static function generateCaseNumber()
     {
         do {
             $reference = 'SS' . strtoupper(Str::random(8)) . date('y');

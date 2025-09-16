@@ -112,7 +112,7 @@ class ReportController extends Controller
         $report = Report::where('reference_number', $request->reference_number)->first();
 
         if (!$report) {
-            return back()->withErrors(['reference_number' => 'Report not found. Please check your reference number.'])->withInput();
+            return back()->withErrors(['reference_number' => 'Report not found. Please check your case number.'])->withInput();
         }
 
         return view('reports.status', compact('report'));

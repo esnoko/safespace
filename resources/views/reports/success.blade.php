@@ -391,34 +391,31 @@
                     <h1 class="success-title">Report Submitted Successfully!</h1>
                     <p class="success-subtitle">
                         Thank you for trusting us with your report. Your voice matters and we take every report seriously.
-                    </p>
-
-                    <!-- Reference Number -->
+                    </p>                    <!-- Reference Number -->
                     <div class="reference-card">
-                        <h2 class="reference-title">Your Reference Number</h2>
+                        <h2 class="reference-title">Your Case Number</h2>
                         <div class="reference-number" id="reference-number">
                             {{ $report->reference_number }}
                         </div>
                         <button onclick="copyReference()" class="btn btn-primary">
-                            <i class="fas fa-copy" style="margin-right: 0.5rem;"></i>Copy Reference Number
+                            <i class="fas fa-copy" style="margin-right: 0.5rem;"></i>Copy Case Number
                         </button>
                     </div>
 
                     <!-- Important Info -->
-                    <div class="info-grid">
-                        <div class="info-item">
+                    <div class="info-grid">                        <div class="info-item">
                             <h3>
                                 <i class="fas fa-bookmark" style="color: #f59e0b;"></i>
                                 Save This Number
                             </h3>
-                            <p>Write down or screenshot your reference number. You'll need it to track your report status.</p>
+                            <p>Write down or screenshot your case number. You'll need it to track your report status.</p>
                         </div>
                         <div class="info-item">
                             <h3>
                                 <i class="fas fa-search" style="color: #f59e0b;"></i>
                                 Track Your Report
                             </h3>
-                            <p>Use your reference number to check the status of your report at any time.</p>
+                            <p>Use your case number to check the status of your report at any time.</p>
                         </div>
                     </div>
 
@@ -492,7 +489,7 @@
                 }, 2000);
             }).catch(function(err) {
                 console.error('Could not copy text: ', err);
-                alert('Reference number: ' + referenceNumber);
+                alert('Case number: ' + referenceNumber);
             });
         }
     </script>
