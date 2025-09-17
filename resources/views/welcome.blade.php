@@ -294,8 +294,9 @@
             <h1>SafeSpace: Report Abuse Safely and Anonymously</h1>
             <p>A confidential platform designed to protect and empower learners and employees to speak out - with the
                 option to report anonymously</p>            <div class="hero-buttons">
-                <a href="{{ route('reports.create') }}" class="btn btn-primary">Report Now</a>
+                <a href="{{ route('reports.create') }}" class="btn btn-primary" style="margin-right: 8px;">Report Now</a>
                 <a href="{{ route('reports.track') }}" class="btn btn-outline white">Track Report</a>
+                <a href="{{ route('login') }}" class="btn btn-primary">Login as School</a>
             </div>
         </div>
     </section>
